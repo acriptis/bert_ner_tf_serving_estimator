@@ -34,7 +34,7 @@ TF Estimator is a core of the BERT Ner component, unfortunately BERT reuires spe
 in `bert_ner_preprocessor.py`. So if you have data in CONLL-2003 NER format (suppose it is placed in 
 file <BIO_DATASET_PATH>) you need to cnvert it to tensorflow friendly tfrecord format.  
 
-## convert dataset from BIO-markup into TF records dataset
+## Convert dataset from BIO-markup into TF records dataset
 
 General usage:
 `cat <BIO_DATASET_PATH> | ./bio2tf.py <TFRECORD_DATASET_PATH>`
@@ -54,16 +54,19 @@ you can convert your dataset into tfrecord format.  And when you have tfrecord d
 
 `python ner_train.py --batch_size 29 --model_save_path res/BERT_NER_ESTIMATOR --train_dataset data/train_lowercased.tfrecord --training_steps 2`
 
-## Training
-
-python ner_train.py
+## Training own component
+If you want to create a new model CRF and fit it for data you can specify `model_save_path` attribute in CLI options
+`python ner_train.py --train_dataset data/train.tfrecord --model_save_path res/my_NER_estimator --training_steps 20`
 
 ## Evaluation
 
 `python ner_evaluate.py --dataset data/valid.tfrecord` 
 
 ## Data Manipulation
-if you want to lowercase prepare lowercased dataset from BIO markup you can use script `dataset_lowercaser.py`.
+### Dataset lowercaser
+If you want to lowercase dataset from BIO markup you can use script `dataset_lowercaser.py`.
+
+`dataset_lowercaser.py --help` for hints of usage
 
 Example:
 
@@ -76,6 +79,7 @@ If you want undeterministic lowercasing you can run with option `lowercasing_pro
 
 # Useful Links:
 https://guillaumegenthial.github.io/serving-tensorflow-estimator.html
+
 https://medium.com/@yuu.ishikawa/serving-pre-modeled-and-custom-tensorflow-estimator-with-tensorflow-serving-12833b4be421  
 
 # Docker & DevOps Cheatsheet
