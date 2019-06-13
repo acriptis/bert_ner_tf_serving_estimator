@@ -6,13 +6,12 @@ Use cases of the project:
 # Reuse BERT NER model for Predictions
 ## Reuse with TF Serving
 0. under your virtual environment run `pip install -r requirements.txt`
-1. First you need to download model
-2. instal tensorflow_serving
-3. From project folder launch docker image: 
+1. instal tensorflow_serving
+2. From project folder launch docker image: 
 
 `sudo docker run -t --rm -p 8501:8501 -v "${PWD}/res:/models" -e MODEL_NAME='BERT_NER_ESTIMATOR' -e MODEL_PATH='/models/BERT_NER_ESTIMATOR' --name='BERT_NER_ESTIMATOR'  tensorflow/serving`
 
-4. Now you can poll Estimator with curl:
+3. Now you can poll Estimator with curl:
 
 `curl -d '{"instances": [{"input_ids": [212, 14, 513, 3,11], "input_masks": [1,1,1,1,1], "y_masks": [1,1,1,1,1]}]}' -X POST http://localhost:8501/v1/models/BERT_NER_ESTIMATOR:predict`
 
@@ -55,7 +54,7 @@ you can convert your dataset into tfrecord format.  And when you have tfrecord d
 
 `python ner_train.py --batch_size 29 --model_save_path res/BERT_NER_ESTIMATOR --train_dataset data/train_lowercased.tfrecord --training_steps 2`
 
-##Training:
+##Training
 
 python ner_train.py
 
