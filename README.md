@@ -3,17 +3,18 @@ Use cases of the project:
 2. If you want to train your own model from tfrecord
 3. If you have your own BIO dataset
 
-# Reuse BERT NER model with TF Serving
+# Reuse BERT NER model for Predictions
+## Reuse with TF Serving
 0. under your virtual environment run `pip install -r requirements.txt`
 1. First you need to download model
 2. instal tensorflow_serving
 3. From project folder launch docker image: 
 
-`sudo docker run -t --rm -p 8501:8501 -v "${PWD}/res:/models" -e MODEL_NAME='BERT_NER_saved_estimator' -e MODEL_PATH='/models/BERT_NER_saved_estimator' --name='BERT_NER_ESTIMATOR'  tensorflow/serving`
+`sudo docker run -t --rm -p 8501:8501 -v "${PWD}/res:/models" -e MODEL_NAME='BERT_NER_ESTIMATOR' -e MODEL_PATH='/models/BERT_NER_ESTIMATOR' --name='BERT_NER_ESTIMATOR'  tensorflow/serving`
 
 4. Now you can poll Estimator with curl:
 
-`curl -d '{"instances": [{"input_ids": [212, 14, 513, 3,11], "input_masks": [1,1,1,1,1], "y_masks": [1,1,1,1,1]}]}' -X POST http://localhost:8501/v1/models/BERT_NER_saved_estimator:predict`
+`curl -d '{"instances": [{"input_ids": [212, 14, 513, 3,11], "input_masks": [1,1,1,1,1], "y_masks": [1,1,1,1,1]}]}' -X POST http://localhost:8501/v1/models/BERT_NER_ESTIMATOR:predict`
 
 Output:
 ```
@@ -23,6 +24,10 @@ Output:
 }
 ```
 
+## Reuse in testing mode 
+If you would like to test component predictions with easy to debug python scripts:
+
+`python ner_predict.py`
 
 # Prepare custom dataset for training by BERT NER Estimator
 
@@ -51,11 +56,8 @@ by following command:
 `python ner_train.py --batch_size 29 --model_save_path res/BERT_NER_ESTIMATOR --train_dataset data/train_lowercased.tfrecord --training_steps 2`
 
 When it complete you can launch TF server with command 3 from paragraph "Reuse BERT NER model":
+
 `sudo docker run -t --rm -p 8501:8501 -v "${PWD}/res:/models" -e MODEL_NAME='BERT_NER_ESTIMATOR' -e MODEL_PATH='/models/BERT_NER_ESTIMATOR' --name='BERT_NER_ESTIMATOR'  tensorflow/serving`
-
-##Prediction:
-
-`python ner_predict.py`
 
 ##Training:
 
@@ -84,6 +86,6 @@ https://medium.com/@yuu.ishikawa/serving-pre-modeled-and-custom-tensorflow-estim
 # Docker & DevOps Cheatsheet
  sudo docker ps
  sudo docker stop BERT_NER_ESTIMATOR
- curl -d '{"instances": [{"input_ids": [212, 14, 513, 3,11], "input_masks": [1,1,1,1,1], "y_masks": [1,1,1,1,1]}]}' -X POST http://localhost:8501/v1/models/BERT_NER_saved_estimator:predict
- sudo docker run -t --rm -p 8501:8501 -v "${PWD}/resources/models_for_serving:/models" -e MODEL_NAME='BERT_NER_ESTIMATOR_saved_model' -e MODEL_PATH='/models/BERT_NER_ESTIMATOR_saved_model' --name='BERT_NER_ESTIMATOR'  tensorflow/serving
+ curl -d '{"instances": [{"input_ids": [212, 14, 513, 3,11], "input_masks": [1,1,1,1,1], "y_masks": [1,1,1,1,1]}]}' -X POST http://localhost:8501/v1/models/BERT_NER_ESTIMATOR:predict
+ sudo docker run -t --rm -p 8501:8501 -v "${PWD}/resources/models_for_serving:/models" -e MODEL_NAME='BERT_NER_ESTIMATOR' -e MODEL_PATH='/models/BERT_NER_ESTIMATOR' --name='BERT_NER_ESTIMATOR'  tensorflow/serving
  tensorboard --logdir=/home/alx/Workspace/dp_bert_ner/
