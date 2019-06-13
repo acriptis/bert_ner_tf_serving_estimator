@@ -1,7 +1,12 @@
-Use cases of the project:
-1. If you want to reuse ready-to-go model of BERT for NER in TF Serving stack
-2. If you want to train your own model from tfrecord
-3. If you have your own BIO dataset
+# bert_ner_tf_serving_estimator
+
+Repositiory with experimental code for solving NER (Named Entity Recognition) task with BERT 
+(Bidirectional Encoder Representations from Transformers) and CRF (Conditional Random Fields).
+
+## Use cases of the project
+1. If you want to reuse ready-to-go model of BERT for NER prediction in TF Serving context.
+2. If you want to train your own NER-model or uptrain existing.
+3. If you have your own BIO dataset and would like to fit the model for it.
 
 # Reuse BERT NER model for Predictions
 ## Reuse with TF Serving
