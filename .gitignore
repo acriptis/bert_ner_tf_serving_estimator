@@ -6,3 +6,5 @@ resources/
 .idea/
 *venv*/
 experiments
+*.pyc
+res

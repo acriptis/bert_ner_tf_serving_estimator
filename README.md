@@ -47,13 +47,15 @@ General usage:
 `cat data/valid.txt | ./bio2tf.py data/valid.tfrecord`
 
 
-# Train your own model
-When you have tfrecord dataset (placed in <TFRECORD_DATASET_PATH>) you can launch training process 
-by following command:
+# UpTrain existing model
+If you want to fit the component for your data (supposing you have the same set of entites to be predicted by NER) 
+you can convert your dataset into tfrecord format.  And when you have tfrecord dataset 
+(placed in <TFRECORD_DATASET_PATH>) you can launch training process by following command:
 
 `python ner_train.py --train_dataset data/train.tfrecord --model_save_path res/BERT_NER_ESTIMATOR --training_steps 2`
 
 `python ner_train.py --batch_size 29 --model_save_path res/BERT_NER_ESTIMATOR --train_dataset data/train_lowercased.tfrecord --training_steps 2`
+## 
 
 When it complete you can launch TF server with command 3 from paragraph "Reuse BERT NER model":
 
