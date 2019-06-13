@@ -46,7 +46,6 @@ General usage:
 
 `cat data/valid.txt | ./bio2tf.py data/valid.tfrecord`
 
-
 # UpTrain existing model
 If you want to fit the component for your data (supposing you have the same set of entites to be predicted by NER) 
 you can convert your dataset into tfrecord format.  And when you have tfrecord dataset 
@@ -55,11 +54,6 @@ you can convert your dataset into tfrecord format.  And when you have tfrecord d
 `python ner_train.py --train_dataset data/train.tfrecord --model_save_path res/BERT_NER_ESTIMATOR --training_steps 2`
 
 `python ner_train.py --batch_size 29 --model_save_path res/BERT_NER_ESTIMATOR --train_dataset data/train_lowercased.tfrecord --training_steps 2`
-## 
-
-When it complete you can launch TF server with command 3 from paragraph "Reuse BERT NER model":
-
-`sudo docker run -t --rm -p 8501:8501 -v "${PWD}/res:/models" -e MODEL_NAME='BERT_NER_ESTIMATOR' -e MODEL_PATH='/models/BERT_NER_ESTIMATOR' --name='BERT_NER_ESTIMATOR'  tensorflow/serving`
 
 ##Training:
 
@@ -86,8 +80,15 @@ https://guillaumegenthial.github.io/serving-tensorflow-estimator.html
 https://medium.com/@yuu.ishikawa/serving-pre-modeled-and-custom-tensorflow-estimator-with-tensorflow-serving-12833b4be421  
 
 # Docker & DevOps Cheatsheet
- sudo docker ps
- sudo docker stop BERT_NER_ESTIMATOR
- curl -d '{"instances": [{"input_ids": [212, 14, 513, 3,11], "input_masks": [1,1,1,1,1], "y_masks": [1,1,1,1,1]}]}' -X POST http://localhost:8501/v1/models/BERT_NER_ESTIMATOR:predict
- sudo docker run -t --rm -p 8501:8501 -v "${PWD}/resources/models_for_serving:/models" -e MODEL_NAME='BERT_NER_ESTIMATOR' -e MODEL_PATH='/models/BERT_NER_ESTIMATOR' --name='BERT_NER_ESTIMATOR'  tensorflow/serving
- tensorboard --logdir=/home/alx/Workspace/dp_bert_ner/
+ 
+ `sudo docker ps`
+ 
+ `sudo docker stop BERT_NER_ESTIMATOR`
+ 
+ `curl -d '{"instances": [{"input_ids": [212, 14, 513, 3,11], "input_masks": [1,1,1,1,1], "y_masks": [1,1,1,1,1]}]}' -X POST http://localhost:8501/v1/models/BERT_NER_ESTIMATOR:predict`
+ 
+ `sudo docker run -t --rm -p 8501:8501 -v "${PWD}/resources/models_for_serving:/models" -e MODEL_NAME='BERT_NER_ESTIMATOR' -e MODEL_PATH='/models/BERT_NER_ESTIMATOR' --name='BERT_NER_ESTIMATOR'  tensorflow/serving`
+ 
+ `tensorboard --logdir=/home/alx/Workspace/dp_bert_ner/`
+ 
+ `sudo docker run -t --rm -p 8501:8501 -v "${PWD}/res:/models" -e MODEL_NAME='BERT_NER_ESTIMATOR' -e MODEL_PATH='/models/BERT_NER_ESTIMATOR' --name='BERT_NER_ESTIMATOR'  tensorflow/serving`
