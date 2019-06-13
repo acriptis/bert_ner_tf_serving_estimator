@@ -54,7 +54,7 @@ you can convert your dataset into tfrecord format.  And when you have tfrecord d
 
 `python ner_train.py --batch_size 29 --model_save_path res/BERT_NER_ESTIMATOR --train_dataset data/train_lowercased.tfrecord --training_steps 2`
 
-##Training
+## Training
 
 python ner_train.py
 
