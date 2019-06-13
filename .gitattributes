@@ -1,1 +1,2 @@
 model.ckpt-1263.data-00000-of-00001 filter=lfs diff=lfs merge=lfs -text
+variables.data-00000-of-00001 filter=lfs diff=lfs merge=lfs -text
